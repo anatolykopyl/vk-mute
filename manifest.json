@@ -1,0 +1,24 @@
+{
+  "name": "Hide Cringe",
+  "version": "1.0",
+  "description": "Hides cringe",
+  "permissions": ["activeTab", "declarativeContent", "storage"],
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": false
+  },
+  "page_action": {
+    "default_popup": "popup.html"
+  },
+  "manifest_version": 2,
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.vk.com/*"
+      ],
+      "js": ["hide_element.js"]
+    }
+  ]
+}
