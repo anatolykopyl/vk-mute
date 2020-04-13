@@ -18,4 +18,10 @@ function hidePeer(peer) {
     });
 }
 
-var interval = window.setInterval(function(){ hidePeer(idToHide) }, 500);
+//var interval = window.setInterval(function(){ hidePeer(idToHide) }, 500);
+
+var chatBody = document.getElementsByClassName("_im_peer_history im-page-chat-contain")[0];
+
+chatBody.addEventListener('DOMNodeInserted', function() {
+    hidePeer(idToHide);
+});

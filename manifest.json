@@ -1,11 +1,12 @@
 {
-  "name": "Hide Cringe",
+  "name": "VK Mute",
   "icons": {
-    "128": "icon128.png",
-    "48": "icon48.png"
+    "140": "icons/icon140.png",
+    "128": "icons/icon128.png",
+    "48": "icons/icon48.png"
   },
   "version": "1.0",
-  "description": "Hides cringe",
+  "description": "Позволяет заглушить нежелаемых собеседников",
   "permissions": ["activeTab", "declarativeContent", "storage"],
   "background": {
     "scripts": [
@@ -24,7 +25,8 @@
     },
     {
       "matches": ["https://*.vk.com/*"],
-      "js": ["controls.js"]
+      "js": ["controls.js"],
+      "css": ["controls.css"]
     }
   ]
 }

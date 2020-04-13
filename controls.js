@@ -1,11 +1,12 @@
 var showMembersBtn = document.getElementsByClassName("_im_chat_members im-page--members")[0];
 var controlsArea;
 
+/*
 function isInt(value) {
     return !isNaN(value) && (function(x) { return (x | 0) === x; })(parseFloat(value))
 }
 
-/*
+
 showMembersBtn.addEventListener('click', function() {
     var checkExist = setInterval(function() {
         controlsArea = document.getElementsByClassName("ListItem__aside");
@@ -29,7 +30,11 @@ showMembersBtn.addEventListener('click', function() {
 */
 
 function muteBtnHTML(id) {
-    return '<span style="vertical-align:middle;" class="mute_message" id="mute' + id + '">🔇</span>'
+    return `
+    <span class="mute_message" id="mute` + id + `">
+        🔇
+        <span class="mutetooltip">Заглушить</span>
+    </span>`
 }
 
 function addControls() {
@@ -55,6 +60,7 @@ function addControls() {
             var clicked_id = event.target.id.substr(event.target.id.length - 9);
 
             chrome.storage.sync.set({idToHide: clicked_id}, function() {
+                hidePeer(clicked_id);
                 console.log('idToHide: ' + clicked_id);
             });
         });

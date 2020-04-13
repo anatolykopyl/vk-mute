@@ -1,0 +1,49 @@
+.mute_message .mutetooltip {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    
+    /* Position the tooltip text */
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    
+    /* Fade in tooltip */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+.mute_message .mutetooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.mute_message:hover .mutetooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+.mute_message {
+    width: 16px;
+    height: 16px;
+    position: relative; 
+    display: inline-block;
+    vertical-align: top; 
+    background: url('chrome-extension://__MSG_@@extension_id__/mute.png') no-repeat top left;
+    background-repeat: no-repeat;
+    padding: 6px;
+}
