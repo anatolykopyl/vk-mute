@@ -24,7 +24,7 @@
       "js": ["hide_element.js"]
     },
     {
-      "matches": ["https://*.vk.com/*"],
+      "matches": ["https://*.vk.com/im*"],
       "js": ["controls.js"],
       "css": ["controls.css"]
     }

@@ -30,8 +30,7 @@ showMembersBtn.addEventListener('click', function() {
 */
 
 function muteBtnHTML(id) {
-    return `
-    <span class="mute_message" id="mute` + id + `">
+    return `<span class="mute_message" id="mute` + id + `">
         🔇
         <span class="mutetooltip">Заглушить</span>
     </span>`
@@ -42,29 +41,37 @@ function addControls() {
 
     for (var item of messages) {
         var actionsArea = item.getElementsByClassName("im-mess--actions")[0];
-        var sender_id = item.parentElement.parentElement.parentElement["dataset"].peer
+        if (actionsArea && actionsArea.lastChild.className != "mute_message") {
+            var sender_id = item.parentElement.parentElement.parentElement["dataset"].peer
 
-        actionsArea.innerHTML += muteBtnHTML(sender_id);
-        var muteBtn = actionsArea.getElementsByClassName("mute_message")[0];
-        muteBtn.style.display = "none";
+            actionsArea.innerHTML += muteBtnHTML(sender_id);
+            var muteBtn = actionsArea.getElementsByClassName("mute_message")[0];
+            muteBtn.style.display = "none";
 
-        actionsArea.parentElement.addEventListener("mouseenter", function( event ) {
-            event.target.getElementsByClassName("mute_message")[0].style.display = "";
-        });
-
-        actionsArea.parentElement.addEventListener("mouseleave", function( event ) { 
-            event.target.getElementsByClassName("mute_message")[0].style.display = "none";
-        });
-
-        muteBtn.addEventListener("click", function(event) {
-            var clicked_id = event.target.id.substr(event.target.id.length - 9);
-
-            chrome.storage.sync.set({idToHide: clicked_id}, function() {
-                hidePeer(clicked_id);
-                console.log('idToHide: ' + clicked_id);
+            actionsArea.parentElement.addEventListener("mouseenter", function( event ) {
+                event.target.getElementsByClassName("mute_message")[0].style.display = "inline-block";
             });
-        });
+
+            actionsArea.parentElement.addEventListener("mouseleave", function( event ) { 
+                event.target.getElementsByClassName("mute_message")[0].style.display = "none";
+            });
+
+            muteBtn.addEventListener("click", function(event) {
+                var clicked_id = event.target.id.substr(event.target.id.length - 9);
+
+                chrome.storage.sync.set({idToHide: clicked_id}, function() {
+                    hidePeer(clicked_id);
+                    console.log('idToHide: ' + clicked_id);
+                });
+            });
+        }
     }
 }
 
-addControls();
+var chatBody = document.getElementsByClassName("_im_peer_history im-page-chat-contain")[0];
+
+chatBody.addEventListener('DOMNodeInserted', function(event) {
+    if (event.target.className == 'im-mess--check fl_l') {
+        addControls();
+    }
+});

@@ -42,8 +42,8 @@
     height: 16px;
     position: relative; 
     display: inline-block;
-    vertical-align: top; 
-    background: url('chrome-extension://__MSG_@@extension_id__/mute.png') no-repeat top left;
+    vertical-align: top;
+    /*background: url('chrome-extension://__MSG_@@extension_id__/mute.png') !important;*/
     background-repeat: no-repeat;
     padding: 6px;
 }
