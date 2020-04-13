@@ -51,7 +51,7 @@ disableCheckbox.addEventListener('change', (event) => {
   });
 });
 
-idToHideInput.addEventListener('input', (event) => {
+idToHideInput.addEventListener('input', () => {
   chrome.storage.sync.set({idToHide: idToHideInput.value}, function() {
     console.log('idToHide: '+idToHideInput.value);
   });
