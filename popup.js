@@ -1,6 +1,6 @@
 //let disableButton = document.getElementById('disableButton');
 let disableCheckbox = document.getElementById('disableCheckbox');
-let idToHideInput = document.getElementById('idToHide');
+let idToHideDisplay = document.getElementById('idToHide');
 let status = document.getElementById('status');
 var isExtensionOn;
 var idToHide;
@@ -21,22 +21,8 @@ chrome.storage.sync.get('isExtensionOn', function(data) {
 
 chrome.storage.sync.get('idToHide', function(data) {
   idToHide = data.idToHide;
-  idToHideInput.value = idToHide;
+  idToHideDisplay.innerText = idToHide;
 });
-
-
-/*disableButton.onclick = function(element) {
-  isExtensionOn = !isExtensionOn;
-  if (isExtensionOn) {
-    status.innerHTML = "Enabled";
-  } else {
-    status.innerHTML = "Disabled";
-  }
-
-  chrome.storage.sync.set({isExtensionOn: isExtensionOn}, function() {
-    console.log('isExtensionOn: '+isExtensionOn);
-  });
-};*/
 
 disableCheckbox.addEventListener('change', (event) => {
   isExtensionOn = event.target.checked;
@@ -50,10 +36,3 @@ disableCheckbox.addEventListener('change', (event) => {
     console.log('isExtensionOn: '+isExtensionOn);
   });
 });
-
-idToHideInput.addEventListener('input', () => {
-  chrome.storage.sync.set({idToHide: idToHideInput.value}, function() {
-    console.log('idToHide: '+idToHideInput.value);
-  });
-});
-

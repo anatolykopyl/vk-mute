@@ -101,7 +101,7 @@ chatBody.addEventListener('DOMNodeInserted', function(event) {
             });
 
             muteBtn.addEventListener("click", function(event) {
-                var clicked_id = event.target.id.substr(event.target.id.length - 9);
+                var clicked_id = event.target.id.substr(4);
 
                 chrome.storage.sync.set({idToHide: clicked_id}, function() {
                     hidePeer(clicked_id);
