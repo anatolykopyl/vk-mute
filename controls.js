@@ -13,6 +13,7 @@ function addControls() {
         if (actionsArea && actionsArea.lastChild.className != "mute_message") {
             var sender_id = message.parentElement.parentElement.parentElement["dataset"].peer
 
+            actionsArea.style['margin-right'] = "-30px";
             actionsArea.innerHTML += muteBtnHTML(sender_id);
             var muteBtn = actionsArea.getElementsByClassName("mute_message")[0];
             muteBtn.style.display = "none";
@@ -59,6 +60,7 @@ var controlsInterval = setInterval(function () {
                 if (actionsArea && actionsArea.lastChild.className != "mute_message") {
                     var sender_id = message.parentElement.parentElement.parentElement.dataset.peer;
 
+                    actionsArea.style['margin-right'] = "-30px";
                     actionsArea.innerHTML += muteBtnHTML(sender_id);
                     var muteBtn = actionsArea.getElementsByClassName("mute_message")[0];
                     muteBtn.style.display = "none";
