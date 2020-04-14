@@ -22,6 +22,10 @@
     "manifest_version": 2,
     "content_scripts": [
         {
+            "matches": ["https://*.vk.com/*"],
+            "js": ["main.js"]
+        },
+        {
             "matches": ["https://*.vk.com/im*"],
             "js": ["hide_element.js"]
         },
