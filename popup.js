@@ -43,3 +43,12 @@ idToHideDisplay.addEventListener('click', function() {
         console.log('Cleared idToHide');
     });
 });
+
+
+idToHideDisplay.addEventListener('mouseenter', function(event) {
+    event.target.style.color = "red";
+});
+
+idToHideDisplay.addEventListener('mouseleave', function(event) {
+    event.target.style.color = "black";
+});
