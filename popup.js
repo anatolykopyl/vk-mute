@@ -9,30 +9,37 @@ var enableText = "Кринж офф";
 var disableText = "Кринж он";
 
 chrome.storage.sync.get('isExtensionOn', function(data) {
-  isExtensionOn = data.isExtensionOn;
+    isExtensionOn = data.isExtensionOn;
 
-  disableCheckbox.checked = isExtensionOn;
-  if (isExtensionOn) {
-    status.innerHTML = enableText;
-  } else {
-    status.innerHTML = disableText;
-  }
+    disableCheckbox.checked = isExtensionOn;
+    if (isExtensionOn) {
+        status.innerHTML = enableText;
+    } else {
+        status.innerHTML = disableText;
+    }
 });
 
 chrome.storage.sync.get('idToHide', function(data) {
-  idToHide = data.idToHide;
-  idToHideDisplay.innerText = idToHide;
+    idToHide = data.idToHide;
+    idToHideDisplay.innerText = idToHide;
 });
 
 disableCheckbox.addEventListener('change', (event) => {
-  isExtensionOn = event.target.checked;
-  if (event.target.checked) {
-    status.innerHTML = enableText;
-  } else {
-    status.innerHTML = disableText;
-  }
+    isExtensionOn = event.target.checked;
+    if (event.target.checked) {
+        status.innerHTML = enableText;
+    } else {
+        status.innerHTML = disableText;
+    }
 
-  chrome.storage.sync.set({isExtensionOn: isExtensionOn}, function() {
-    console.log('isExtensionOn: '+isExtensionOn);
-  });
+    chrome.storage.sync.set({isExtensionOn: isExtensionOn}, function() {
+        console.log('isExtensionOn: '+isExtensionOn);
+    });
+});
+
+idToHideDisplay.addEventListener('click', function() {
+    chrome.storage.sync.set({idToHide: ''}, function() {
+        idToHideDisplay.innerText = '';
+        console.log('Cleared idToHide');
+    });
 });

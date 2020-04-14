@@ -1,32 +1,34 @@
 {
-  "name": "VK Mute",
-  "icons": {
-    "140": "icons/icon140.png",
-    "128": "icons/icon128.png",
-    "48": "icons/icon48.png"
-  },
-  "version": "1.0",
-  "description": "Позволяет заглушить нежелаемых собеседников",
-  "permissions": ["activeTab", "declarativeContent", "storage"],
-  "background": {
-    "scripts": [
-      "background.js"
-    ],
-    "persistent": false
-  },
-  "page_action": {
-    "default_popup": "popup.html"
-  },
-  "manifest_version": 2,
-  "content_scripts": [
-    {
-      "matches": ["https://*.vk.com/*"],
-      "js": ["hide_element.js"]
+    "name": "VK Mute",
+    "icons": {
+        "140": "icons/icon140.png",
+        "128": "icons/icon128.png",
+        "48": "icons/icon48.png"
     },
-    {
-      "matches": ["https://*.vk.com/im*"],
-      "js": ["controls.js"],
-      "css": ["controls.css"]
-    }
-  ]
+    "version": "1.0",
+    "description": "Позволяет заглушить нежелаемых собеседников",
+    "permissions": [
+        "activeTab",
+        "declarativeContent",
+        "storage"
+    ],
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": false
+    },
+    "page_action": {
+        "default_popup": "popup.html"
+    },
+    "manifest_version": 2,
+    "content_scripts": [
+        {
+            "matches": ["https://*.vk.com/im*"],
+            "js": ["hide_element.js"]
+        },
+        {
+            "matches": ["https://*.vk.com/im*"],
+            "js": ["controls.js"],
+            "css": ["controls.css"]
+        }
+    ]
 }
