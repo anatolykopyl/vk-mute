@@ -6,9 +6,7 @@
         </span>`
     }
 
-    function addControls(event, msg) {
-        let message = msg || event.target.parentElement;
-
+    function addControls(event, message = event.target.parentElement) {
         let actionsArea = message.getElementsByClassName("im-mess--actions")[0];
         if (actionsArea && actionsArea.lastChild.className != "mute_message") {
             var sender_id = message.parentElement.parentElement.parentElement["dataset"].peer
@@ -54,11 +52,13 @@
     let controlsInterval = setInterval(function () {
         chatBody = document.getElementsByClassName("_im_peer_history im-page-chat-contain")[0];
 
-        for (let item of chatBody.children) {
-            if (item.className.includes('im-mess-stack _im_mess_stack')) {
-                let messages = item.children[1].children[1].getElementsByClassName('im-mess im_in _im_mess');
-                for (let message of messages) {
-                    addControls(null, message);
+        if (chatBody) {
+            for (let item of chatBody.children) {
+                if (item.className.includes('im-mess-stack _im_mess_stack')) {
+                    let messages = item.children[1].children[1].getElementsByClassName('im-mess im_in _im_mess');
+                    for (let message of messages) {
+                        addControls(null, message);
+                    }
                 }
             }
         }
