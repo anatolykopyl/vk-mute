@@ -19,13 +19,11 @@ function muteBtnHTML(id) {
  * @param chatBody {HTMLElement}
  * @return {function(...[*]=)}
  */
-function addControls(chatBody) {
-    return function (event) {
-        console.log(event);
-        if (event.target.className === 'im-mess--check fl_l') {
-            const message = event.target.parentElement;
-            addControlButton(message)
-        }
+function addControls(event) {
+    console.log(event);
+    if (event.target.className === 'im-mess--check fl_l') {
+        const message = event.target.parentElement;
+        addControlButton(message)
     }
 }
 

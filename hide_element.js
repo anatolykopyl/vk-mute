@@ -1,9 +1,27 @@
-var idToHide;
+// Returns false if there was an element not hidden
+function hideElements(chatBody) {
+    let idToHide;
+    chrome.storage.sync.get('idToHide', function(data) {
+        idToHide = data.idToHide;
+    });
 
-var chatBody = document.getElementsByClassName("_im_peer_history im-page-chat-contain")[0];
+    let r = true;
+    for (var item of chatBody.children) {
+        if (item.dataset.peer === idToHide) {
+            if (item.style.display !== "none") {
+                item.style.display = "none";
+                r = false;
+            }
+        }
+    }
+    return r;
+}
+
+let chatBody = document.getElementsByClassName("_im_peer_history im-page-chat-contain")[0];
 
 chatBody.addEventListener('DOMNodeInserted', function(event) {
     if (event.target.className === 'im-mess-stack _im_mess_stack ') {
+        let idToHide;
         chrome.storage.sync.get('idToHide', function(data) {
             idToHide = data.idToHide;
         });
@@ -18,20 +36,10 @@ chatBody.addEventListener('DOMNodeInserted', function(event) {
     }
 });
 
-chrome.storage.sync.get('idToHide', function(data) {
-    idToHide = data.idToHide;
-});
-
 // Try to hide until successful. Needed for page refresh.
 var hideInterval = setInterval(function () {
-    var chatBody = document.getElementsByClassName("_im_peer_history im-page-chat-contain")[0];
-    for (var item of chatBody.children) {
-        if (item.dataset.peer === idToHide) {
-            if (item.style.display !== "none") {
-                item.style.display = "none";
-            } else {
-                clearInterval(hideInterval);
-            }
-        }
+    const chatBody = document.getElementsByClassName("_im_peer_history im-page-chat-contain")[0];
+    if (hideElements(chatBody)) {
+        clearInterval(hideInterval);
     }
 }, 200);
