@@ -1,0 +1,33 @@
+{
+  "name": "vk-mute",
+  "version": "1.0.0",
+  "description": "Заглушить собеседника в беседе в ВК. 🔇",
+  "main": "src/dom/main.js",
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "watch": "webpack --config webpack.config.js --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anatolykopyl/vk-mute.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anatolykopyl/vk-mute/issues"
+  },
+  "homepage": "https://github.com/anatolykopyl/vk-mute#readme",
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^3.5.2",
+    "html-webpack-plugin": "^4.2.0",
+    "sass": "^1.26.3",
+    "style-loader": "^1.1.4",
+    "webpack": "^4.42.1"
+  },
+  "dependencies": {
+    "webpack-cli": "^3.3.11"
+  }
+}
