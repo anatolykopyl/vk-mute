@@ -1,9 +1,9 @@
 {
     "name": "VK Mute",
     "icons": {
-        "140": "icons/icon140.png",
-        "128": "icons/icon128.png",
-        "48": "icons/icon48.png"
+        "140": "assets/icons/icon140.png",
+        "128": "assets/icons/icon128.png",
+        "48": "assets/icons/icon48.png"
     },
     "version": "1.0",
     "description": "Позволяет заглушить нежелаемых собеседников",
@@ -13,26 +13,17 @@
         "storage"
     ],
     "background": {
-        "scripts": ["background.js"],
+        "scripts": ["dist/background.js"],
         "persistent": false
     },
     "page_action": {
-        "default_popup": "popup.html"
+        "default_popup": "dist/popup.html"
     },
     "manifest_version": 2,
     "content_scripts": [
         {
             "matches": ["https://*.vk.com/*"],
-            "js": ["main.js"]
-        },
-        {
-            "matches": ["https://*.vk.com/im*"],
-            "js": ["hide_element.js"]
-        },
-        {
-            "matches": ["https://*.vk.com/im*"],
-            "js": ["controls.js"],
-            "css": ["controls.css"]
+            "js": ["./dist/dom.js"]
         }
     ]
 }

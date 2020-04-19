@@ -3,6 +3,8 @@
  * @param id {String}
  * @return {HTMLSpanElement}
  */
+import {getChatBody} from "../utils/getChatBody";
+
 function muteBtnHTML(id) {
     const element = document.createElement('span');
     element.setAttribute('class', 'mute_message');
@@ -64,21 +66,28 @@ function setIdToHideHandle(chatBody) {
         const clickedId = event.target.id.substr(4);     // get id of sender from element id
 
         chrome.storage.sync.set({idToHide: clickedId}, function () {
-            for (let item of chatBody.children) {
-                if (item.dataset.peer === clickedId) {
-                    item.style.display = "none";
-                }
-            }
-
+            hideExistingMessages(clickedId);
             console.log('idToHide: ' + clickedId);
         });
     }
 }
 
+export function hideExistingMessages(id) {
+    const chatBody = getChatBody();
+    for (let item of chatBody.children) {
+        if (item.dataset.peer === id) {
+            item.style.display = "none";
+        }
+    }
+}
+
 // Try to add controls until successful. Needed for page refresh.
-function createTryToInitInterval() {
+export function createTryToInitInterval() {
     const controlsInterval = setInterval(function () {
-        tryToInitControls(controlsInterval)
+        if(!tryToInitControls(controlsInterval)){
+            clearInterval(controlsInterval);
+
+        }
     }, 200)
     return controlsInterval;
 }
@@ -86,40 +95,31 @@ function createTryToInitInterval() {
 /**
  *
  * @param message {HTMLElement}
- * @param intervalForClean {Number?}
  */
-function addControlButton(message, intervalForClean) {
+function addControlButton(message, chatBody) {
     const actionsArea = message.getElementsByClassName("im-mess--actions")[0];
     if (actionsArea && actionsArea.lastChild.className !== "mute_message") {
         const senderId = message.parentElement.parentElement.parentElement["dataset"].peer;
         const muteBtn = addMuteButton(actionsArea, senderId);
         addActionAreaEvents(actionsArea);
         muteBtn.addEventListener("click", setIdToHideHandle(chatBody));
-    } else if (intervalForClean) {
-        clearInterval(intervalForClean)
+        return true;
+    } else {
+        return false;
     }
 }
 
-/**
- * Function hide and mark messages
- * @param intervalForClear {Number}
- */
-function tryToInitControls(intervalForClear) {
-    const chatBody = document.getElementsByClassName("_im_peer_history im-page-chat-contain")[0];
-
+export function tryToInitControls() {
+    let status = true;
+    const chatBody = getChatBody();
+    if(!chatBody) return false;
     for (let item of chatBody.children) {
         if (item.className.includes('im-mess-stack _im_mess_stack')) {
             let messages = item.children[1].children[1].getElementsByClassName('im-mess im_in _im_mess');
             for (let message of messages) {
-                addControlButton(message, intervalForClear)
+                status = addControlButton(message, chatBody)
             }
         }
     }
-
+    return status;
 }
-
-(function init() {
-    const chatBody = document.getElementsByClassName("_im_peer_history im-page-chat-contain")[0];
-    chatBody.addEventListener('DOMNodeInserted', addControls);
-    createTryToInitInterval();
-})();
