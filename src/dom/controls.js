@@ -115,7 +115,7 @@ export function tryToInitControls() {
     if(!chatBody) return false;
     for (let item of chatBody.children) {
         if (item.className.includes('im-mess-stack _im_mess_stack')) {
-            let messages = item.children[1].children[1].getElementsByClassName('im-mess im_in _im_mess');
+            let messages = item.children[1].children[1].getElementsByClassName('im-mess _im_mess');
             for (let message of messages) {
                 status = addControlButton(message, chatBody)
             }
