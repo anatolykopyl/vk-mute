@@ -1,5 +1,5 @@
 body {
-    min-width: 80px;
+    min-width: 120px;
 }
 /* The switch - the box around the slider */
 .switch {
@@ -78,21 +78,26 @@ input:checked + .slider:before {
 }
 
 .idToHide {
-    margin: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+    width: 100vw;
 }
 
 .idToHide:hover {
-    background-color: white;
+    background-color: #dcdfde;
 }
 
 #id_list {
-    background-color: #dcdfde;
     color: black;
-    width: 100vw;
     position: relative;
     margin-left: -50vw;
     left: 50%;
     margin-top: 10vw;
-    padding-top: 5px;
-    padding-bottom: 5px;
+}
+
+.del_item {
+    cursor: pointer;
 }
