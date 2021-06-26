@@ -2,14 +2,14 @@ import './popup.css'
 
 //let disableButton = document.getElementById('disableButton');
 let disableCheckbox = document.getElementById('disableCheckbox');
-let idToHideDisplay = document.getElementsByClassName('idToHide');
+let idsToHideElements = document.getElementsByClassName('idToHide');
 let idList = document.getElementById("id_list");
 let status = document.getElementById('status');
 let isExtensionOn;
-let idToHide = [];
+let idsToHide = [];
 
-let enableText = "Кринж офф";
-let disableText = "Кринж он";
+let enableText = "Вкл";
+let disableText = "Выкл";
 
 function idBtnHTML(id) {
     const element = document.createElement('div');
@@ -29,21 +29,21 @@ chrome.storage.sync.get('isExtensionOn', function(data) {
     }
 });
 
-chrome.storage.sync.get('idToHide', function(data) {
-    idToHide = data.idToHide;
-    for (const id in idToHide) {
-        const row = idBtnHTML(idToHide[id]);
+chrome.storage.sync.get('idsToHide', function(data) {
+    idsToHide = data.idsToHide;
+    for (const id in idsToHide) {
+        const row = idBtnHTML(idsToHide[id]);
         idList.appendChild(row);
     }
-    for (const element of idToHideDisplay) {
+    for (const element of idsToHideElements) {
         element.addEventListener('click', function() {
-            const index = idToHide.indexOf(element.innerText)
+            const index = idsToHide.indexOf(element.innerText)
             if (index > -1) {
-                idToHide.splice(index, 1);
+                idsToHide.splice(index, 1);
             }
-            chrome.storage.sync.set({idToHide: idToHide}, function() {
+            chrome.storage.sync.set({idsToHide: idsToHide}, function() {
                 element.innerText = '';
-                console.log('Cleared idToHide');
+                console.log('Cleared idsToHide');
             });
         });
     };    

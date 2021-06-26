@@ -65,22 +65,22 @@ function setIdToHideHandle(chatBody) {
     return function (event) {
         const clickedId = event.target.id.substr(4);     // get id of sender from element id
 
-        chrome.storage.sync.get('idToHide', function(data) {
-            let idToHide = data.idToHide==='' ? [] : data.idToHide;
-            idToHide.push(clickedId);
-            chrome.storage.sync.set({idToHide: idToHide}, function () {
+        chrome.storage.sync.get('idsToHide', function(data) {
+            let idsToHide = data.idsToHide || [];
+            idsToHide.push(clickedId);
+            chrome.storage.sync.set({idsToHide: idsToHide}, function () {
                 hideExistingMessages();
-                console.log('idToHide: ' + data.idToHide);
+                console.log('idsToHide: ' + data.idsToHide);
             });
         });
     }
 }
 
 export function hideExistingMessages() {
-    chrome.storage.sync.get('idToHide', function(data) {
+    chrome.storage.sync.get('idsToHide', function(data) {
         const chatBody = getChatBody();
         for (let item of chatBody.children) {
-            if (data.idToHide.includes(item.dataset.peer)) {
+            if (data.idsToHide.includes(item.dataset.peer)) {
                 item.style.display = "none";
             }
         }
