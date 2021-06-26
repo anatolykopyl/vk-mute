@@ -1,5 +1,6 @@
 {
     "name": "VK Mute",
+    "author": "Anatoly Kopyl, Matvey Tarasov",
     "icons": {
         "140": "assets/icons/icon140.png",
         "128": "assets/icons/icon128.png",
