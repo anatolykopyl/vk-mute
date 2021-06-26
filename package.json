@@ -23,11 +23,7 @@
     "babel-loader": "^8.1.0",
     "css-loader": "^3.5.2",
     "html-webpack-plugin": "^4.2.0",
-    "sass": "^1.26.3",
     "style-loader": "^1.1.4",
     "webpack": "^4.42.1"
-  },
-  "dependencies": {
-    "webpack-cli": "^3.3.11"
   }
 }
