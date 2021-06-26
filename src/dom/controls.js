@@ -14,15 +14,9 @@ function muteBtnHTML(id) {
     return element;
 }
 
-/**
- *
- * @param chatBody {HTMLElement}
- * @return {function(...[*]=)}
- */
-function addControls(event) {
-    console.log(event);
-    if (event.target.className === 'im-mess--check fl_l') {
-        const message = event.target.parentElement;
+export function tryToAddControls(target) {
+    if (target.className === 'im-mess--check fl_l') {
+        const message = target.parentElement;
         addControlButton(message)
     }
 }
@@ -61,14 +55,20 @@ function addActionAreaEvents(actionsArea) {
 function setIdToHideHandle() {
     return function (event) {
         const clickedId = event.target.id.substr(4);     // get id of sender from element id
+        let clickedName = event.target.parentElement.parentElement.parentElement.parentElement;
+        clickedName = clickedName.children[0].children[0].children[0].innerText;
 
         chrome.storage.sync.get('idsToHide', function(data) {
             let idsToHide = data.idsToHide || [];
-            idsToHide.push(clickedId);
-            chrome.storage.sync.set({idsToHide: idsToHide}, function () {
-                hideExistingMessages();
-                console.log('idsToHide: ' + data.idsToHide);
-            });
+            if (idsToHide.filter(user => user.id == clickedId).length === 0) {
+                idsToHide.push({
+                    id: clickedId,
+                    name: clickedName
+                });
+                chrome.storage.sync.set({idsToHide: idsToHide}, function () {
+                    hideExistingMessages();
+                });
+            }
         });
     }
 }
@@ -77,7 +77,7 @@ export function hideExistingMessages() {
     chrome.storage.sync.get('idsToHide', function(data) {
         const chatBody = getChatBody();
         for (let item of chatBody.children) {
-            if (data.idsToHide.includes(item.dataset.peer)) {
+            if (data.idsToHide.filter(user => user.id == item.dataset.peer).length > 0) {
                 item.style.display = "none";
             }
         }

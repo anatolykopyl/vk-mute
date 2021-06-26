@@ -39,6 +39,7 @@
 .mute_message {
     margin-top: .46rem;
     margin-left: 4px;
+    margin-right: 3px;
     display: inline-block;
     vertical-align: top;
     width: 12px;

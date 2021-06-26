@@ -7,14 +7,14 @@ let idList = document.getElementById("id_list");
 let isExtensionOn;
 let idsToHide = [];
 
-function idBtnHTML(id) {
+function idBtnHTML(user) {
     const element = document.createElement('div');
     element.setAttribute('class', 'idToHide');
     element.innerHTML = `
-        <a href="https://vk.com/id${id}" target="_blank" title="Перейти в профиль">🤐 id${id}</a>
+        <a href="https://vk.com/id${user.id}" target="_blank" title="Перейти в профиль">🤐 ${user.name}</a>
         <span class="del_item" title="Удалить">🗑️</span>
     `;
-    element.id = id;
+    element.id = user.id;
     return element;
 }
 
@@ -34,10 +34,7 @@ chrome.storage.sync.get('idsToHide', function(data) {
         for (const child of element.childNodes) {
             if (child.className === "del_item") {
                 child.addEventListener('click', function() {
-                    const index = idsToHide.indexOf(element.id)
-                    if (index > -1) {
-                        idsToHide.splice(index, 1);
-                    }
+                    idsToHide = idsToHide.filter(user => user.id != element.id);
                     chrome.storage.sync.set({idsToHide: idsToHide}, function() {
                         element.remove();
                         console.log('Cleared idsToHide');

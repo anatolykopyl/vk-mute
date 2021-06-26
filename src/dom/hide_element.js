@@ -1,4 +1,5 @@
 import {getChatBody} from "../utils/getChatBody";
+import {tryToAddControls} from "./controls";
 
 export function addNewMessageEventListener() {
     const chatBody = getChatBody();
@@ -8,16 +9,16 @@ export function addNewMessageEventListener() {
 }
 
 function newMessageHandler(message) {
+    tryToAddControls(message);
     if (message.className === 'im-mess-stack _im_mess_stack ') {
         chrome.storage.sync.get('isExtensionOn', function(data) {
-            let isExtensionOn = data.isExtensionOn;
-            chrome.storage.sync.get('idsToHide', function(data) {
-                if (isExtensionOn) {
-                    if (data.idsToHide.includes(message.dataset.peer)) {
+            if (data.isExtensionOn) {
+                chrome.storage.sync.get('idsToHide', function(data) {
+                    if (data.idsToHide.filter(user => user.id == message.dataset.peer).length > 0) {
                         message.style.display = "none";
                     }
-                }
-            });
+                });
+            }
         });
     }
 }
