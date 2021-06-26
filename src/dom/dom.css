@@ -10,9 +10,8 @@
     /* Position the tooltip text */
     position: absolute;
     z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -60px;
+    bottom: 110%;
+    margin-left: -53px;
     
     /* Fade in tooltip */
     opacity: 0;
@@ -38,14 +37,13 @@
 }
 
 .mute_message {
-    width: 16px;
-    height: 16px;
-    position: relative; 
+    margin-top: .46rem;
+    margin-left: 4px;
     display: inline-block;
     vertical-align: top;
-    /*background: url('chrome-extension://__MSG_@@extension_id__/mute.png') !important;*/
-    background-repeat: no-repeat;
-    padding: 6px;
+    width: 12px;
+    height: 12px;
+    background-size: contain !important;
 }
 
 .im-mess--actions {

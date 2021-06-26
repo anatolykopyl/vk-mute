@@ -25,5 +25,8 @@
             "matches": ["https://*.vk.com/*"],
             "js": ["./dist/dom.js"]
         }
+    ],
+    "web_accessible_resources": [
+        "assets/mute.png"
     ]
 }

@@ -9,10 +9,8 @@ function muteBtnHTML(id) {
     const element = document.createElement('span');
     element.setAttribute('class', 'mute_message');
     element.setAttribute('id', `mute${id}`);
-    element.innerHTML = `
-        🔇
-        <span class="mutetooltip">Заглушить</span>
-    `;
+    element.style.background = `url(${chrome.runtime.getURL("assets/mute.png")}) center no-repeat`;
+    element.innerHTML ='<span class="mutetooltip">Заглушить</span>';
     return element;
 }
 
@@ -58,10 +56,9 @@ function addActionAreaEvents(actionsArea) {
 
 /**
  *
- * @param chatBody {HTMLElement}
  * @return {function(...[]=)}
  */
-function setIdToHideHandle(chatBody) {
+function setIdToHideHandle() {
     return function (event) {
         const clickedId = event.target.id.substr(4);     // get id of sender from element id
 
@@ -92,7 +89,6 @@ export function createTryToInitInterval() {
     const controlsInterval = setInterval(function () {
         if(!tryToInitControls(controlsInterval)){
             clearInterval(controlsInterval);
-
         }
     }, 200)
     return controlsInterval;
@@ -102,13 +98,13 @@ export function createTryToInitInterval() {
  *
  * @param message {HTMLElement}
  */
-function addControlButton(message, chatBody) {
+function addControlButton(message) {
     const actionsArea = message.getElementsByClassName("im-mess--actions")[0];
     if (actionsArea && actionsArea.lastChild.className !== "mute_message") {
         const senderId = message.parentElement.parentElement.parentElement["dataset"].peer;
         const muteBtn = addMuteButton(actionsArea, senderId);
         addActionAreaEvents(actionsArea);
-        muteBtn.addEventListener("click", setIdToHideHandle(chatBody));
+        muteBtn.addEventListener("click", setIdToHideHandle());
         return true;
     } else {
         return false;

@@ -77,6 +77,11 @@ input:checked + .slider:before {
     padding-bottom: 5px;
 }
 
+h3 {
+    margin-bottom: 0;
+    padding: .5rem 0 .5rem 0;
+}
+
 .idToHide {
     padding: 10px;
     box-sizing: border-box;
@@ -100,4 +105,13 @@ input:checked + .slider:before {
 
 .del_item {
     cursor: pointer;
+}
+
+.donation_btn {
+    cursor: pointer;
+    text-align: right;
+}
+
+.donation_btn > a {
+    text-decoration: none;
 }

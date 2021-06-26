@@ -4,18 +4,14 @@ import './popup.css'
 let disableCheckbox = document.getElementById('disableCheckbox');
 let idsToHideElements = document.getElementsByClassName('idToHide');
 let idList = document.getElementById("id_list");
-let status = document.getElementById('status');
 let isExtensionOn;
 let idsToHide = [];
-
-let enableText = "Вкл";
-let disableText = "Выкл";
 
 function idBtnHTML(id) {
     const element = document.createElement('div');
     element.setAttribute('class', 'idToHide');
     element.innerHTML = `
-        <a href="https://vk.com/id${id}" target="_blank" title="Перейти в профиль">🧑 id${id}</a>
+        <a href="https://vk.com/id${id}" target="_blank" title="Перейти в профиль">🤐 id${id}</a>
         <span class="del_item" title="Удалить">🗑️</span>
     `;
     element.id = id;
@@ -26,11 +22,6 @@ chrome.storage.sync.get('isExtensionOn', function(data) {
     isExtensionOn = data.isExtensionOn;
 
     disableCheckbox.checked = isExtensionOn;
-    if (isExtensionOn) {
-        status.innerHTML = enableText;
-    } else {
-        status.innerHTML = disableText;
-    }
 });
 
 chrome.storage.sync.get('idsToHide', function(data) {
@@ -59,11 +50,6 @@ chrome.storage.sync.get('idsToHide', function(data) {
 
 disableCheckbox.addEventListener('change', (event) => {
     isExtensionOn = event.target.checked;
-    if (event.target.checked) {
-        status.innerHTML = enableText;
-    } else {
-        status.innerHTML = disableText;
-    }
 
     chrome.storage.sync.set({isExtensionOn}, function() {
         console.log('isExtensionOn: '+isExtensionOn);
