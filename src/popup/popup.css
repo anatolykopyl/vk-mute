@@ -77,11 +77,15 @@ input:checked + .slider:before {
     padding-bottom: 5px;
 }
 
-#idToHide {
+.idToHide {
     margin: 10px;
 }
 
-.id_list {
+.idToHide:hover {
+    background-color: white;
+}
+
+#id_list {
     background-color: #dcdfde;
     color: black;
     width: 100vw;

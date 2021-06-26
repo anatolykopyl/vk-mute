@@ -13,6 +13,7 @@ function init() {
         if (tryToInitControls()) {
             createTryToInitInterval();
             addNewMessageEventListener();
+            hideExistingMessages();
         }
     })
 }

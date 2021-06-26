@@ -65,20 +65,26 @@ function setIdToHideHandle(chatBody) {
     return function (event) {
         const clickedId = event.target.id.substr(4);     // get id of sender from element id
 
-        chrome.storage.sync.set({idToHide: clickedId}, function () {
-            hideExistingMessages(clickedId);
-            console.log('idToHide: ' + clickedId);
+        chrome.storage.sync.get('idToHide', function(data) {
+            let idToHide = data.idToHide==='' ? [] : data.idToHide;
+            idToHide.push(clickedId);
+            chrome.storage.sync.set({idToHide: idToHide}, function () {
+                hideExistingMessages();
+                console.log('idToHide: ' + data.idToHide);
+            });
         });
     }
 }
 
-export function hideExistingMessages(id) {
-    const chatBody = getChatBody();
-    for (let item of chatBody.children) {
-        if (item.dataset.peer === id) {
-            item.style.display = "none";
+export function hideExistingMessages() {
+    chrome.storage.sync.get('idToHide', function(data) {
+        const chatBody = getChatBody();
+        for (let item of chatBody.children) {
+            if (data.idToHide.includes(item.dataset.peer)) {
+                item.style.display = "none";
+            }
         }
-    }
+    })
 }
 
 // Try to add controls until successful. Needed for page refresh.

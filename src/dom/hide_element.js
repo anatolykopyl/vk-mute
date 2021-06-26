@@ -18,11 +18,10 @@ function newMessageHandler(message, idToHide) {
 
         chrome.storage.sync.get('isExtensionOn', function(data) {
             if (data.isExtensionOn) {
-                if (message.dataset.peer === idToHide) {
+                if (idToHide.includes(message.dataset.peer)) {
                     message.style.display = "none";
                 }
             }
         });
     }
-
 }
