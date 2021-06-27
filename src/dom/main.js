@@ -10,7 +10,11 @@ function init() {
             createTryToInitInterval();
             addNewMessageEventListener();
             returnMessagesEventListener();
-            hideExistingMessages();
+            chrome.storage.sync.get('isExtensionOn', function(data) {
+                if (data.isExtensionOn) {
+                    hideExistingMessages();
+                }
+            });
         }
     })
 }

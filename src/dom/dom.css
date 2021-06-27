@@ -1,50 +1,28 @@
-.mute_message .mutetooltip {
-    visibility: hidden;
-    width: 120px;
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    padding: 5px 0;
-    border-radius: 6px;
-    
-    /* Position the tooltip text */
+.mute_tooltip {
     position: absolute;
-    z-index: 1;
-    bottom: 110%;
-    margin-left: -53px;
-    
-    /* Fade in tooltip */
-    opacity: 0;
-    transition: opacity 0.3s;
+    left: -50px;
+    top: -33px;
+    display: none;
 }
 
-/* Tooltip arrow */
-.mute_message .mutetooltip::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: #555 transparent transparent transparent;
+.mute_tooltip::after {
+    left: 61px !important;
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */
-.mute_message:hover .mutetooltip {
-    visibility: visible;
+.mute_message:hover .mute_tooltip {
+    display: block !important;
     opacity: 1;
 }
 
 .mute_message {
-    margin-top: .46rem;
-    margin-left: 4px;
-    margin-right: 3px;
+    position: relative;
     display: inline-block;
     vertical-align: top;
-    width: 12px;
-    height: 12px;
-    background-size: contain !important;
+    padding-top: 2px;
+    width: 24px;
+    height: 24px;
+    background-size: 11px !important;
 }
 
 .im-mess--actions {

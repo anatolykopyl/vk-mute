@@ -9,8 +9,9 @@ function muteBtnHTML(id) {
     const element = document.createElement('span');
     element.setAttribute('class', 'mute_message');
     element.setAttribute('id', `mute${id}`);
+    element.setAttribute('label', 'Заглушить');
     element.style.background = `url(${chrome.runtime.getURL("assets/mute.png")}) center no-repeat`;
-    element.innerHTML ='<span class="mutetooltip">Заглушить</span>';
+    element.innerHTML = '<div class="mute_tooltip tt_w tt_black tt_down"><div class="tt_text">Заглушить</div></div>';
     return element;
 }
 

@@ -96,7 +96,7 @@ h3 {
 }
 
 .idToHide:hover {
-    background-color: #dcdfde;
+    background-color: #f1f1f1;
 }
 
 #id_list {
@@ -109,6 +109,11 @@ h3 {
 
 .del_item {
     cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.del_item:hover {
+    transform: scale(1.15);
 }
 
 .donation_btn {
