@@ -18,7 +18,7 @@ function muteBtnHTML(id) {
 export function tryToAddControls(target) {
     if (target.className === 'im-mess--check fl_l') {
         const message = target.parentElement;
-        addControlButton(message)
+        addControlButton(message);
     }
 }
 
@@ -104,15 +104,18 @@ export function createTryToInitInterval() {
  * @param message {HTMLElement}
  */
 function addControlButton(message) {
-    const actionsArea = message.getElementsByClassName("im-mess--actions")[0];
-    if (actionsArea && actionsArea.lastChild.className !== "mute_message") {
-        const senderId = message.parentElement.parentElement.parentElement["dataset"].peer;
-        const muteBtn = addMuteButton(actionsArea, senderId);
-        addActionAreaEvents(actionsArea);
-        muteBtn.addEventListener("click", setIdToHideHandle());
-        return true;
-    } else {
-        return false;
+    // Check if message is not an outgoing one
+    if (!message.classList.contains('im-mess_out')) {
+        const actionsArea = message.getElementsByClassName("im-mess--actions")[0];
+        if (actionsArea && actionsArea.lastChild.className !== "mute_message") {
+            const senderId = message.parentElement.parentElement.parentElement["dataset"].peer;
+            const muteBtn = addMuteButton(actionsArea, senderId);
+            addActionAreaEvents(actionsArea);
+            muteBtn.addEventListener("click", setIdToHideHandle());
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 
@@ -124,7 +127,7 @@ export function tryToInitControls() {
         if (item.className.includes('im-mess-stack _im_mess_stack')) {
             let messages = item.children[1].children[1].getElementsByClassName('im-mess _im_mess');
             for (let message of messages) {
-                status = addControlButton(message, chatBody)
+                status = addControlButton(message);
             }
         }
     }
