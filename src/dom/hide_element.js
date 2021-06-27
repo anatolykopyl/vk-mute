@@ -1,5 +1,5 @@
 import {getChatBody} from "../utils/getChatBody";
-import {tryToAddControls} from "./controls";
+import {tryToAddControls, hideExistingMessages} from "./controls";
 
 export function addNewMessageEventListener() {
     const chatBody = getChatBody();
@@ -21,4 +21,38 @@ function newMessageHandler(message) {
             }
         });
     }
+}
+
+export function returnMessagesEventListener() {
+    chrome.storage.onChanged.addListener(function(changes) {
+        const isExtensionOn = changes.isExtensionOn;
+        const idsToHide = changes.idsToHide;
+        const chatBody = getChatBody();
+        if (isExtensionOn) {
+            if (isExtensionOn.newValue === false) {
+                for (let item of chatBody.children) {
+                    item.style.display = "block";
+                }
+            } else {
+                hideExistingMessages();
+            }
+        }
+        if (idsToHide) {
+            chrome.storage.sync.get('isExtensionOn', function(data) {
+                if (data.isExtensionOn) {
+                    if (idsToHide.newValue.length < idsToHide.oldValue.length) {
+                        // for (let item of chatBody.children) {
+                        //     item.style.display = "block";
+                        // }
+                        // hideExistingMessages();
+                        for (let item of chatBody.children) {
+                            if (idsToHide.newValue.filter(user => user.id == item.dataset.peer).length === 0) {
+                                item.style.display = "block";
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    });
 }

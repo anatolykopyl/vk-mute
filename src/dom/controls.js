@@ -66,7 +66,11 @@ function setIdToHideHandle() {
                     name: clickedName
                 });
                 chrome.storage.sync.set({idsToHide: idsToHide}, function () {
-                    hideExistingMessages();
+                    chrome.storage.sync.get('isExtensionOn', function(data) {
+                        if (data.isExtensionOn) {
+                            hideExistingMessages();
+                        }
+                    });
                 });
             }
         });

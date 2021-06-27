@@ -1,7 +1,7 @@
 import './dom.css'
 import {createTryToInitInterval, hideExistingMessages, tryToInitControls} from "./controls";
 import {UrlController} from "../utils/Url";
-import {addNewMessageEventListener} from "./hide_element";
+import {addNewMessageEventListener, returnMessagesEventListener} from "./hide_element";
 
 function init() {
     const url = new UrlController();
@@ -9,6 +9,7 @@ function init() {
         if (tryToInitControls()) {
             createTryToInitInterval();
             addNewMessageEventListener();
+            returnMessagesEventListener();
             hideExistingMessages();
         }
     })
