@@ -9,7 +9,6 @@
     "version": "1.2",
     "description": "Позволяет заглушить нежелаемых собеседников",
     "permissions": [
-        "activeTab",
         "declarativeContent",
         "storage"
     ],
