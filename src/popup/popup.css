@@ -4,6 +4,7 @@
 
 body {
     min-width: 160px;
+    margin: 0;
 }
 /* The switch - the box around the slider */
 .switch {
@@ -71,19 +72,17 @@ input:checked + .slider:before {
 .header {
     background-color: #2196F3;
     color: white;
-    width: 100vw;
+    width: 100%;
+    height: 3rem;
     position: relative;
-    margin-left: -50vw;
-    left: 50%;
-    margin-top: -20vw;
-    margin-bottom: 10vw;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
 }
 
 h3 {
-    margin-bottom: 0;
-    padding: 1rem 0 .5rem 0;
+    margin: 0;
 }
 
 .idToHide {
@@ -92,7 +91,6 @@ h3 {
     display: flex;
     justify-content: space-between;
     background-color: #fff;
-    width: 100vw;
 }
 
 .idToHide:hover {
@@ -102,9 +100,8 @@ h3 {
 #id_list {
     color: black;
     position: relative;
-    margin-left: -50vw;
-    left: 50%;
-    margin-top: 10vw;
+    width: 100%;
+    margin-top: 1rem;
 }
 
 .del_item {
@@ -119,6 +116,7 @@ h3 {
 .donation_btn {
     text-align: right;
     margin-top: .5rem;
+    padding: 0 10px 10px 0;
 }
 
 a {
