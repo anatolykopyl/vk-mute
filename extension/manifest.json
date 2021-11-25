@@ -6,7 +6,7 @@
         "128": "assets/icons/icon128.png",
         "48": "assets/icons/icon48.png"
     },
-    "version": "1.3",
+    "version": "1.4",
     "description": "Позволяет заглушить нежелаемых собеседников",
     "permissions": [
         "declarativeContent",
@@ -19,6 +19,11 @@
     "page_action": {
         "default_popup": "dist/popup.html"
     },
+    "browser_action": {
+        "default_icon": "assets/icons/icon128.png",
+        "default_title": "VK Mute",
+        "default_popup": "dist/popup.html"
+    },
     "manifest_version": 2,
     "content_scripts": [
         {
@@ -28,5 +33,11 @@
     ],
     "web_accessible_resources": [
         "assets/mute.png"
-    ]
+    ],
+    "browser_specific_settings": {
+        "gecko": {
+          "id": "{121ce430-bad8-4f6b-85ba-55635e87e57d}",
+          "strict_min_version": "48.0"
+        }
+    }
 }
