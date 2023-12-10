@@ -1,6 +1,6 @@
 {
   "name": "vk-mute",
-  "version": "1.0.0",
+  "version": "1.5.0",
   "description": "Заглушить собеседника в беседе в ВК. 🔇",
   "main": "src/dom/main.js",
   "scripts": {
@@ -11,8 +11,8 @@
     "type": "git",
     "url": "git+https://github.com/anatolykopyl/vk-mute.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Anatoly Kopyl <hi@kopyl.dev>",
+  "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/anatolykopyl/vk-mute/issues"
   },
@@ -23,6 +23,7 @@
     "babel-loader": "^8.3.0",
     "css-loader": "^6.7.3",
     "html-webpack-plugin": "^5.5.0",
+    "raw-loader": "^4.0.2",
     "style-loader": "^1.1.4",
     "webpack": "^5.76.0",
     "webpack-cli": "^4.7.2"

@@ -6,7 +6,6 @@ module.exports = {
     devtool: "inline-source-map",
     entry: {
         dom: './src/dom/main.js',
-        background: './src/background/background.js',
         popup: './src/popup/popup.js'
     },
     output: {
@@ -28,18 +27,23 @@ module.exports = {
             {
                 test: /\.css$/i,
                 use: ['style-loader', 'css-loader'],
-            }
+            },
+            {
+                test: /\.svg$/i,
+                use: 'raw-loader',
+            },
         ]
     },
-    plugins: [new HtmlWebpackPlugin({
-        template: "./src/popup/popup.html",
-        filename: "popup.html",
-        chunks: ['popup']
-    }),
-    new HtmlWebpackPlugin({
-        template: "./src/donate.html",
-        filename: "donate.html",
-        chunks: ['donate']
-    })]
-
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: "./src/popup/popup.html",
+            filename: "popup.html",
+            chunks: ['popup']
+        }),
+        new HtmlWebpackPlugin({
+            template: "./src/donate.html",
+            filename: "donate.html",
+            chunks: ['donate']
+        })
+    ]
 }

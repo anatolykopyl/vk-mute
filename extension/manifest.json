@@ -6,20 +6,21 @@
         "128": "assets/icons/icon128.png",
         "48": "assets/icons/icon48.png"
     },
-    "version": "1.4",
+    "version": "1.5.0",
     "description": "Позволяет заглушить нежелаемых собеседников",
     "permissions": [
-        "declarativeContent",
         "storage"
     ],
-    "background": {
-        "scripts": ["dist/background.js"],
-        "persistent": false
-    },
-    "page_action": {
+    "action": {
+        "default_icon": {
+            "140": "assets/icons/icon140.png",
+            "128": "assets/icons/icon128.png",
+            "48": "assets/icons/icon48.png"
+        },
+        "default_title": "VK Mute",
         "default_popup": "dist/popup.html"
     },
-    "manifest_version": 2,
+    "manifest_version": 3,
     "content_scripts": [
         {
             "matches": ["https://*.vk.com/*"],
@@ -27,6 +28,9 @@
         }
     ],
     "web_accessible_resources": [
-        "assets/mute.png"
+        {
+            "resources": ["assets/mute.png"],
+            "matches": ["https://*.vk.com/*"]
+        }
     ]
 }

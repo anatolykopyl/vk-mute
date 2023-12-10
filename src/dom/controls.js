@@ -1,20 +1,24 @@
+import {getChatBody} from "../utils/getChatBody";
+import muteSvg from "./mute.svg";
+
 /**
  *
  * @param id {String}
  * @return {HTMLSpanElement}
  */
-import {getChatBody} from "../utils/getChatBody";
-
 function muteBtnHTML(id) {
     const element = document.createElement('span');
-    element.setAttribute('class', 'mute_message');
+    element.setAttribute('class', 'im-mess--mute');
     element.setAttribute('id', `mute${id}`);
     element.setAttribute('label', 'Заглушить');
-    element.style.background = `url(${chrome.runtime.getURL("assets/mute.png")}) center no-repeat`;
-    element.innerHTML = '<div class="mute_tooltip tt_w tt_black tt_down"><div class="tt_text">Заглушить</div></div>';
+    element.innerHTML = muteSvg + '<div class="mute_tooltip tt_w tt_black tt_down"><div class="tt_text">Заглушить</div></div>';
     return element;
 }
 
+/**
+ * 
+ * @param target {HTMLElenemt}
+ */
 export function tryToAddControls(target) {
     if (target.className === 'im-mess--check fl_l') {
         const message = target.parentElement;
@@ -31,7 +35,7 @@ export function tryToAddControls(target) {
 function addMuteButton(actionArea, senderId) {
     const muteButton = muteBtnHTML(senderId);
     actionArea.appendChild(muteButton);
-    muteButton.style.display = "none";
+    muteButton.style.visibility = "hidden";
     return muteButton;
 }
 
@@ -41,41 +45,39 @@ function addMuteButton(actionArea, senderId) {
  */
 function addActionAreaEvents(actionsArea) {
     actionsArea.parentElement.addEventListener("mouseenter", function (event) {
-        event.target.getElementsByClassName("mute_message")[0].style.display = "inline-block";
+        event.target.getElementsByClassName("im-mess--mute")[0].style.visibility = "visible";
     });
 
     actionsArea.parentElement.addEventListener("mouseleave", function (event) {
-        event.target.getElementsByClassName("mute_message")[0].style.display = "none";
+        event.target.getElementsByClassName("im-mess--mute")[0].style.visibility = "hidden";
     });
 }
 
 /**
  *
- * @return {function(...[]=)}
+ * @this {HTMLElement}
  */
 function setIdToHideHandle() {
-    return function (event) {
-        const clickedId = event.target.id.substr(4);     // get id of sender from element id
-        let clickedName = event.target.parentElement.parentElement.parentElement.parentElement;
-        clickedName = clickedName.children[0].children[0].children[0].innerText;
+    const clickedId = this.id.substring(4);
+    let clickedName = this.parentElement.parentElement.parentElement.parentElement;
+    clickedName = clickedName.children[0].children[0].children[0].innerText;
 
-        chrome.storage.sync.get('idsToHide', function(data) {
-            let idsToHide = data.idsToHide || [];
-            if (idsToHide.filter(user => user.id == clickedId).length === 0) {
-                idsToHide.push({
-                    id: clickedId,
-                    name: clickedName
+    chrome.storage.sync.get('idsToHide', function(data) {
+        let idsToHide = data.idsToHide || [];
+        if (idsToHide.filter(user => user.id == clickedId).length === 0) {
+            idsToHide.push({
+                id: clickedId,
+                name: clickedName
+            });
+            chrome.storage.sync.set({idsToHide: idsToHide}, function () {
+                chrome.storage.sync.get('isExtensionOn', function(data) {
+                    if (data.isExtensionOn) {
+                        hideExistingMessages();
+                    }
                 });
-                chrome.storage.sync.set({idsToHide: idsToHide}, function () {
-                    chrome.storage.sync.get('isExtensionOn', function(data) {
-                        if (data.isExtensionOn) {
-                            hideExistingMessages();
-                        }
-                    });
-                });
-            }
-        });
-    }
+            });
+        }
+    });
 }
 
 export function hideExistingMessages() {
@@ -107,11 +109,11 @@ function addControlButton(message) {
     // Check if message is not an outgoing one
     if (!message.classList.contains('im-mess_out')) {
         const actionsArea = message.getElementsByClassName("im-mess--actions")[0];
-        if (actionsArea && actionsArea.lastChild.className !== "mute_message") {
+        if (actionsArea && actionsArea.lastChild.className !== "im-mess--mute") {
             const senderId = message.parentElement.parentElement.parentElement["dataset"].peer;
             const muteBtn = addMuteButton(actionsArea, senderId);
             addActionAreaEvents(actionsArea);
-            muteBtn.addEventListener("click", setIdToHideHandle());
+            muteBtn.addEventListener("click", setIdToHideHandle);
             return true;
         } else {
             return false;

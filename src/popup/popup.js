@@ -1,9 +1,9 @@
 import './popup.css'
 
 //let disableButton = document.getElementById('disableButton');
-let disableCheckbox = document.getElementById('disableCheckbox');
-let idsToHideElements = document.getElementsByClassName('idToHide');
-let idList = document.getElementById("id_list");
+const disableCheckbox = document.getElementById('disableCheckbox');
+const idsToHideElements = document.getElementsByClassName('idToHide');
+const idList = document.getElementById("id_list");
 let isExtensionOn;
 let idsToHide = [];
 

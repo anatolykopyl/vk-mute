@@ -43,5 +43,4 @@ export class UrlController {
         clearInterval(this.interval)
         this.interval = null
     }
-
 }
