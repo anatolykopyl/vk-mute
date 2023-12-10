@@ -5,7 +5,8 @@
   "main": "src/dom/main.js",
   "scripts": {
     "build": "webpack --config webpack.config.js",
-    "watch": "webpack --config webpack.config.js --watch"
+    "watch": "webpack --config webpack.config.js --watch",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -18,10 +19,12 @@
   },
   "homepage": "https://github.com/anatolykopyl/vk-mute#readme",
   "devDependencies": {
+    "@antfu/eslint-config": "^2.4.3",
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
     "babel-loader": "^8.3.0",
     "css-loader": "^6.7.3",
+    "eslint": "^8.55.0",
     "html-webpack-plugin": "^5.5.0",
     "raw-loader": "^4.0.2",
     "style-loader": "^1.1.4",

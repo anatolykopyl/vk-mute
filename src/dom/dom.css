@@ -1,35 +1,35 @@
 .mute_tooltip {
-    position: absolute;
-    left: -50px;
-    top: -33px;
-    display: none;
+  position: absolute;
+  left: -50px;
+  top: -33px;
+  display: none;
 }
 
 .mute_tooltip::after {
-    left: 61px !important;
+  left: 61px !important;
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */
 .im-mess--mute:hover .mute_tooltip {
-    display: block !important;
-    opacity: 1;
+  display: block !important;
+  opacity: 1;
 }
 
 .im-mess--mute {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    opacity: .5;
-    color: var(--vkui--color_icon_secondary);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  opacity: .5;
+  color: var(--vkui--color_icon_secondary);
 }
 
 .im-mess--mute:hover {
-    opacity: 1;
+  opacity: 1;
 }
 
 .im-mess--actions {
-    margin-right: -30px !important;
+  margin-right: -30px !important;
 }
